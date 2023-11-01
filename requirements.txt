@@ -1,0 +1,4 @@
+youtube-dl
+moviepy
+openpyx1
+pandas
