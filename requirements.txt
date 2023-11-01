@@ -1,4 +1,5 @@
 youtube-dl
 moviepy
-openpyx1
+openpyxl
 pandas
+os
