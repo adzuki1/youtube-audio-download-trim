@@ -3,3 +3,5 @@ moviepy
 openpyxl
 pandas
 os
+queue
+threading
