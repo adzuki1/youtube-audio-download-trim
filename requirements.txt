@@ -1,7 +1,4 @@
-youtube-dl
-moviepy
+youtube_dl
 openpyxl
-pandas
-os
-queue
-threading
+moviepy
+

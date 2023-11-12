@@ -12,14 +12,11 @@ C = 2
 D = 3
 E = 4
 
-# open excel file
-workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
-worksheet = workbook.active
-download_dir = "/home/usuario/Documentos/musicas-formatura"
-
 download_queue = Queue()
 
 def downloadAudio(yt_url, folder):
+    print(f"Downloading {yt_url} to {folder}")
+
     ytdl_settings = {
     "format": "bestaudio/best",
     "postprocessors": [
@@ -31,9 +28,13 @@ def downloadAudio(yt_url, folder):
     ],
     "outtmpl": f"{folder}/%(title)s.%(ext)s",
     "verbose": True,
+    "ignoreErrors": True,
     }
     with youtube_dl.YoutubeDL(ytdl_settings) as ytdl:
-        info_dict = ytdl.extract_info(yt_url, download=True)
+        try:
+            info_dict = ytdl.extract_info(yt_url, download=True)
+        except youtube_dl.utils.DownloadError as e:
+            print(f"Download error for {yt_url}: {e}")
 
 def processQueue():
     while True:
@@ -44,12 +45,21 @@ def processQueue():
         
         # unpack task
         yt_url, folder = task
+        #debug
+        print(f"Processing task: {yt_url} in {folder}")
         # download audio
         downloadAudio(yt_url, folder)
         # task done
         download_queue.task_done()
 
+# open excel file
+# workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
+workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
+worksheet = workbook.active
+# download_dir = "/home/usuario/Documentos/musicas-formatura"
+download_dir = "/home/adzk/Documents/formatura"
 
+#queue
 worker_thread = Thread(target=processQueue)
 worker_thread.start()
 
