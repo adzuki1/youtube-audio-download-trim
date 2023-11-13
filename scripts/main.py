@@ -1,4 +1,5 @@
 import youtube_dl
+from pytube import Youtube
 import os
 import openpyxl
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -53,11 +54,11 @@ def processQueue():
         download_queue.task_done()
 
 # open excel file
-# workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
-workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
+workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
+#workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
 worksheet = workbook.active
-# download_dir = "/home/usuario/Documentos/musicas-formatura"
-download_dir = "/home/adzk/Documents/formatura"
+download_dir = "/home/usuario/Documentos/musicas-formatura"
+#download_dir = "/home/adzk/Documents/formatura"
 
 #queue
 worker_thread = Thread(target=processQueue)

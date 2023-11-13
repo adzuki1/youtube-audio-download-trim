@@ -1,4 +1,4 @@
-#!/home/adzk/Documents/code/Python/youtube-mp3-download-trim/venv/bin/python3
+#!/home/usuario/youtube-audio-download-trim/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
