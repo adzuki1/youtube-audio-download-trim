@@ -1,5 +1,5 @@
-import youtube_dl
-from pytube import Youtube
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError
 import os
 import openpyxl
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -18,24 +18,17 @@ download_queue = Queue()
 def downloadAudio(yt_url, folder):
     print(f"Downloading {yt_url} to {folder}")
 
-    ytdl_settings = {
-    "format": "bestaudio/best",
-    "postprocessors": [
-        {
-            "key": "FFmpegExtractAudio",
-            "preferredcodec": "mp3",
-            "preferredquality": "192",
-        }
-    ],
-    "outtmpl": f"{folder}/%(title)s.%(ext)s",
-    "verbose": True,
-    "ignoreErrors": True,
-    }
-    with youtube_dl.YoutubeDL(ytdl_settings) as ytdl:
-        try:
-            info_dict = ytdl.extract_info(yt_url, download=True)
-        except youtube_dl.utils.DownloadError as e:
-            print(f"Download error for {yt_url}: {e}")
+    try:
+        url = YouTube(yt_url)
+        stream = url.streams.filter(only_audio=True).first()
+        folder_path = os.path.join(download_dir, folder)
+
+        os.makedirs(folder_path, exist_ok=True)
+        stream.download(output_path=folder_path, filename=url.title)
+        
+        print("Done!")
+    except RegexMatchError as error:
+        print(f"Download error for {url}: {error}")
 
 def processQueue():
     while True:
@@ -77,4 +70,3 @@ download_queue.put(None)
 # wait for the worker thread to finish
 worker_thread.join()
 
-workbook.save("test2.xlsx")
