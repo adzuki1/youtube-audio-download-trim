@@ -3,6 +3,7 @@ from pytube.exceptions import RegexMatchError
 import os
 import openpyxl
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from moviepy.editor import VideoFileClip
 from queue import Queue
 from threading import Thread
 
@@ -20,15 +21,25 @@ def downloadAudio(yt_url, folder):
 
     try:
         url = YouTube(yt_url)
-        stream = url.streams.filter(only_audio=True).first()
+        stream = url.streams.filter(only_audio=False, file_extension='mp4').first()
         folder_path = os.path.join(download_dir, folder)
 
         os.makedirs(folder_path, exist_ok=True)
-        stream.download(output_path=folder_path, filename=url.title)
-        
+        file_path = stream.download(output_path=folder_path, filename=url.title)
+
+        # convert audio extention to mp3
+        video_duration = url.length
+        output_path = os.path.join(folder_path, f"{url.title}.mp3")
+        clip = VideoFileClip(file_path)
+        audio_clip = clip.audio
+        audio_clip.write_audiofile(output_path)
+
+        os.remove(file_path)
         print("Done!")
+
     except RegexMatchError as error:
         print(f"Download error for {url}: {error}")
+
 
 def processQueue():
     while True:
