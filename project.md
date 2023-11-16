@@ -32,5 +32,5 @@ Código:
 
 
 Log:
-    download dos arquivos em fila vêm corrompidos
+    download dos arquivos em fila vêm corrompidos - ok
     
