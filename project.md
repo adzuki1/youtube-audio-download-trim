@@ -1,4 +1,4 @@
-Virtual Environment:
+Venv:
 
     1. mover para o diretório do projeto
     cd /path/
@@ -22,8 +22,15 @@ Instalação das Dependências:
 
 Código:
 
-    1. ler e armazenar os dados do arquivo csv
+    1. ler e armazenar os dados do arquivo xlsx - ok
 
-    2. download dos vídeos através de queue
+    2. download dos vídeos através da queue - ok
 
-    3. 
+    3. criar pastas e adicionar arquivos - ok
+
+    4. cortar o audio no intervalo almejado
+
+
+Log:
+    download dos arquivos em fila vêm corrompidos
+    
