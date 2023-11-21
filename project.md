@@ -33,4 +33,8 @@ Código:
 
 Log:
     download dos arquivos em fila vêm corrompidos - ok
-    
+
+
+Trim audio:
+
+intervalo
