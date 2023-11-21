@@ -1,11 +1,14 @@
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError
 import os
 import openpyxl
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+import pydub
+import re
+from pytube import YouTube
+from pytube.exceptions import RegexMatchError
 from moviepy.editor import VideoFileClip
+from moviepy.editor import AudioFileClip
 from queue import Queue
 from threading import Thread
+
 
 # consts
 A = 0
@@ -16,29 +19,64 @@ E = 4
 
 download_queue = Queue()
 
-def downloadAudio(yt_url, folder):
-    print(f"Downloading {yt_url} to {folder}")
+def downloadAudio(yt_url, folder, timestamps):
+    print(f"Downloading and trimming {yt_url} to {folder}")
 
     try:
         url = YouTube(yt_url)
-        stream = url.streams.filter(only_audio=False, file_extension='mp4').first()
+        stream = url.streams.filter(file_extension='mp4').first()
         folder_path = os.path.join(download_dir, folder)
 
         os.makedirs(folder_path, exist_ok=True)
         file_path = stream.download(output_path=folder_path, filename=url.title)
 
         # convert audio extention to mp3
-        video_duration = url.length
-        output_path = os.path.join(folder_path, f"{url.title}.mp3")
-        clip = VideoFileClip(file_path)
-        audio_clip = clip.audio
-        audio_clip.write_audiofile(output_path)
+        # video_duration = url.length
+        # output_path = os.path.join(folder_path, f"{url.title}.mp3")
+        # clip = VideoFileClip(file_path)
+        # audio_clip = clip.audio
+        # audio_clip.write_audiofile(output_path)
 
-        os.remove(file_path)
-        print("Done!")
+        if timestamps:
+            trimmed_output_path = os.path.join(folder_path, f'{url.title}_trim.mp3')
+            trimAudio(file_path, trimmed_output_path, timestamps)
+            
+            # remove not trimmed audio file
+            os.remove(file_path)
+        else:
+            trimmed_output_path = file_path
+
+        print("done!")
 
     except RegexMatchError as error:
         print(f"Download error for {url}: {error}")
+
+
+def timestampToSeconds(timestamp):
+    # convert timestamp in str to sec int
+    match = re.match(r'(\d+):(\d+)', timestamp)
+
+    if match:
+        minutes, seconds = map(int, match.groups())
+        return (minutes * 60 + seconds)
+    return 0
+
+
+def trimAudio(file_path, output_path, timestamps):
+    # get audio file
+    audio = AudioFileClip(file_path)
+
+    start, end = re.findall(r'(\d+:\d+)', timestamps)
+
+    # convert timestamps str to sec
+    start_sec = timestampToSeconds(start)
+    end_sec = timestampToSeconds(end)
+
+    # trim audio
+    trimmed_audio = audio.subclip(start_sec, end_sec)
+
+    # save trimmed file
+    trimmed_audio.write_audiofile(output_path)
 
 
 def processQueue():
@@ -53,9 +91,10 @@ def processQueue():
         #debug
         print(f"Processing task: {yt_url} in {folder}")
         # download audio
-        downloadAudio(yt_url, folder)
+        downloadAudio(yt_url, folder, timestamps)
         # task done
         download_queue.task_done()
+
 
 # open excel file
 workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
@@ -72,7 +111,7 @@ worker_thread.start()
 for row in worksheet.iter_rows(min_row=2, values_only=True):
     folder = row[C]
     yt_url = row[D]
-    # timestamps = row[E]
+    timestamps = row[E]
     download_queue.put((yt_url, os.path.join(download_dir, folder)))
 
 # end of the queue
@@ -80,4 +119,3 @@ download_queue.put(None)
 
 # wait for the worker thread to finish
 worker_thread.join()
-
