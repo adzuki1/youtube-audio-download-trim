@@ -20,7 +20,7 @@ download_queue = Queue()
 download_dir = "/home/adzk/Documents/formatura"
 
 def downloadAudio(yt_url, new_folder, timestamps):
-    print(f"Downloading and trimming {yt_url} to {new_folder}")
+    print(f"\nDownloading and trimming {yt_url} to {new_folder}")
 
     try:
         url = YouTube(yt_url)
@@ -39,7 +39,7 @@ def downloadAudio(yt_url, new_folder, timestamps):
         else:
             trimmed_output_path = file_path
 
-        print("done!")
+        print("done!\n")
 
     except RegexMatchError as error:
         print(f"Download error for {url}: {error}")
@@ -65,12 +65,12 @@ def trimAudio(file_path, output_path, timestamps):
 
     # convert timestamps str to sec
     start_sec = timestampToSeconds(start)
-    print(f"\nStart time {start} in seconds: {start_sec}\n")
+    print(f"Start time {start} in seconds: {start_sec}\n")
     
     # Check if the end timestamp is greater than the video duration
     video_duration = audio.duration
     end_sec = min(timestampToSeconds(end), video_duration)
-    print(f"\nEnd time {end} in seconds: {end_sec}\n")
+    print(f"End time {end} in seconds: {end_sec}\n")
 
     # trim audio from the end first
     trimmed_audio = audio.subclip(0, end_sec)
@@ -92,7 +92,7 @@ def processQueue():
         # unpack task
         yt_url, new_folder, timestamps = task
         #debug
-        print(f"Processing task {counter}: {yt_url} in {new_folder}")
+        print(f"\nProcessing task {counter}: {yt_url} in {new_folder}")
         # download audio
         downloadAudio(yt_url, new_folder, timestamps)
         # task done
