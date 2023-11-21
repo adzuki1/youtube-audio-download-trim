@@ -99,7 +99,6 @@ def processQueue():
         download_queue.task_done()
 
 def main():
-
     # open excel file
     #workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
     workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
