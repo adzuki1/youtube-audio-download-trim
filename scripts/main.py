@@ -20,8 +20,6 @@ download_queue = Queue()
 download_dir = "/home/adzk/Documents/formatura"
 
 def downloadAudio(yt_url, new_folder, timestamps):
-    print(f"\nDownloading and trimming {yt_url} to {new_folder}")
-
     try:
         url = YouTube(yt_url)
         stream = url.streams.filter(file_extension='mp4').first()
