@@ -61,19 +61,25 @@ def timestampToSeconds(timestamp):
         return (minutes * 60 + seconds)
     return 0
 
-
 def trimAudio(file_path, output_path, timestamps):
     # get audio file
     audio = AudioFileClip(file_path)
 
+    # process timestamps string
     start, end = re.findall(r'(\d+:\d+)', timestamps)
 
     # convert timestamps str to sec
     start_sec = timestampToSeconds(start)
-    end_sec = timestampToSeconds(end)
+    
+    # Check if the end timestamp is greater than the video duration
+    video_duration = audio.duration
+    end_sec = min(timestampToSeconds(end), video_duration)
 
-    # trim audio
-    trimmed_audio = audio.subclip(start_sec, end_sec)
+    # trim audio from the end first
+    trimmed_audio = audio.subclip(0, end_sec)
+
+    # trim audio from the start
+    trimmed_audio = trimmed_audio.subclip(start_sec, None)
 
     # save trimmed file
     trimmed_audio.write_audiofile(output_path)
