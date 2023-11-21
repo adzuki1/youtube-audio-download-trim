@@ -66,8 +66,6 @@ def trimAudio(file_path, output_path, timestamps):
     # get audio file
     audio = AudioFileClip(file_path)
 
-    print(f"\nOriginal timestamps: {timestamps}\n")
-
     # process timestamps string
     start, end = re.findall(r'(\d+:\d+)', timestamps)
 
@@ -97,9 +95,9 @@ def processQueue():
     
         if task is None:
             break
-
+        
         # unpack task
-        yt_url, new_folder, timestamps = task
+        yt_url, new_folder = task
         #debug
         print(f"Processing task {counter}: {yt_url} in {new_folder}")
         # download audio
@@ -124,7 +122,7 @@ for row in worksheet.iter_rows(min_row=2, values_only=True):
     new_folder = row[C]
     yt_url = row[D]
     timestamps = row[E]
-    download_queue.put((yt_url, os.path.join(download_dir, new_folder), timestamps))
+    download_queue.put((yt_url, os.path.join(download_dir, new_folder)))
 
 # end of the queue
 download_queue.put(None)
