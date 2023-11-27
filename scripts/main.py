@@ -18,7 +18,6 @@ E = 4
 download_queue = Queue()
 download_dir = "/your/download/directory"
 
-
 def downloadAudio(yt_url, new_folder, timestamps):
     try:
         url = YouTube(yt_url)
@@ -98,8 +97,7 @@ def processQueue():
 
 def main():
     # open excel file
-    workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
-    #workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
+    workbook = openpyxl.load_workbook("your/excel/file.xlsx") # dir
     worksheet = workbook.active
 
     #queue
