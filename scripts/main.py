@@ -16,8 +16,8 @@ D = 3
 E = 4
 
 download_queue = Queue()
-#download_dir = "/home/usuario/Documentos/musicas-formatura"
-download_dir = "/home/adzk/Documents/formatura"
+download_dir = "/your/download/directory"
+
 
 def downloadAudio(yt_url, new_folder, timestamps):
     try:
@@ -59,7 +59,7 @@ def trimAudio(file_path, output_path, timestamps):
     print(f"\nOriginal timestamps: {timestamps}\n")
 
     # process timestamps string
-    start, end = re.findall(r'(\d+:\d+)', timestamps)
+    start, end = re.findall(r'\d+:\d+', timestamps)
 
     # convert timestamps str to sec
     start_sec = timestampToSeconds(start)
@@ -98,8 +98,8 @@ def processQueue():
 
 def main():
     # open excel file
-    #workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
-    workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
+    workbook = openpyxl.load_workbook("/home/usuario/Documentos/test.xlsx") # dir
+    #workbook = openpyxl.load_workbook("/home/adzk/youtube-audio-download-trim/test.xlsx")
     worksheet = workbook.active
 
     #queue
