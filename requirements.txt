@@ -1,5 +1,8 @@
-youtube_dl
 pytube
 openpyxl
 moviepy
-pydub
+
+# os
+# re
+# queue
+# threading
