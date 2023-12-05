@@ -23,7 +23,7 @@ def downloadAudio(yt_url, download_dir, new_folder, timestamps):
         file_path = stream.download(output_path=new_folder_path, filename=url.title)
 
         if timestamps:
-            trimmed_output_path = os.path.join(new_folder_path, f'{url.title}_trim.mp3')
+            trimmed_output_path = os.path.join(new_folder_path, f'{url.title}_trim.wav')
             trimAudio(file_path, trimmed_output_path, timestamps)
 
             # remove not trimmed audio file
@@ -94,7 +94,7 @@ def main():
 
     class_dirs = [download_dir1, download_dir2, download_dir3]
     start_rows = [2, 28, 58]
-    end_rows = [27, 57, 84]
+    end_rows = [27, 57, 83]
 
     # open excel file
     workbook = openpyxl.load_workbook("/home/usuario/Documentos/formatura-downloads-sheet.xlsx")  # dir
@@ -103,5 +103,6 @@ def main():
         start_row, end_row = start_rows[i], end_rows[i]
         # process tasks sequentially
         processTasks(class_dirs[i], workbook.active, start_row, end_row)
+
 if __name__ == "__main__":
     main()
