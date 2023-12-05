@@ -16,8 +16,9 @@ D = 3
 E = 4
 
 download_queue = Queue()
+download_dir = "/your/download/directory"
 
-def downloadAudio(yt_url, download_dir, new_folder, timestamps):
+def downloadAudio(yt_url, new_folder, timestamps):
     try:
         url = YouTube(yt_url)
         stream = url.streams.filter(file_extension='mp4').first()
@@ -86,65 +87,35 @@ def processQueue():
             break
 
         # unpack task
-        yt_url, download_dir, new_folder, timestamps = task
-
-        # skip task if YouTube URL is empty
-        if not yt_url:
-            print(f"SKIPPING TASK {counter}. EMPTY URL.")
-            download_queue.task_done()
-            continue
-
+        yt_url, new_folder, timestamps = task
         #debug
         print(f"\nProcessing task {counter}: {yt_url} in {new_folder}")
         # download audio
-        downloadAudio(yt_url, download_dir, new_folder, timestamps)
+        downloadAudio(yt_url, new_folder, timestamps)
         # task done
         download_queue.task_done()
 
 def main():
-    download_dir1 = "/home/usuario/Documentos/musicas-formatura/3001"
-    download_dir2 = "/home/usuario/Documentos/musicas-formatura/3002"
-    download_dir3 = "/home/usuario/Documentos/musicas-formatura/3003"
-
-    class_dirs = [download_dir1, download_dir2, download_dir3]
-    start_rows = [2, 28, 59]
-    end_rows = [27, 58, 86]
-
     # open excel file
-    workbook = openpyxl.load_workbook("/home/usuario/Documentos/formatura-downloads-sheet.xlsx") # dir
+    workbook = openpyxl.load_workbook("your/excel/file.xlsx") # dir
     worksheet = workbook.active
 
-    # queue
-    worker_threads = []
+    #queue
+    worker_thread = Thread(target=processQueue)
+    worker_thread.start()
 
-    for i in range(len(class_dirs)):
-        start_row, end_row = start_rows[i], end_rows[i]
+    # reading xlsx data
+    for row in worksheet.iter_rows(min_row=2, values_only=True):
+        new_folder = row[C]
+        yt_url = row[D]
+        timestamps = row[E]
+        download_queue.put((yt_url, os.path.join(download_dir, new_folder), timestamps))
 
-        # create a new thread for each range
-        worker_thread = Thread(target=processQueue)
-        worker_thread.start()
-        worker_threads.append(worker_thread)
+    # end of the queue
+    download_queue.put(None)
 
-        # reading xlsx data
-        for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
-            new_folder = row[B]
-            yt_url = row[D]
-            timestamps = row[E]
-
-            # skip task if YouTube URL is empty
-            if not yt_url:
-                print(f"SKIPPING TASK. EMPTY URL.")
-                continue
-
-            # add task to the corresponding queue
-            download_queue.put((yt_url, class_dirs[i], new_folder, timestamps))
-
-        # end of the queue for this directory
-        download_queue.put(None)
-
-    # wait for all worker threads to finish
-    for worker_thread in worker_threads:
-        worker_thread.join()
+    # wait for the worker thread to finish
+    worker_thread.join()
 
 if __name__ == "__main__":
     main()
