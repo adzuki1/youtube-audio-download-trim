@@ -3,7 +3,7 @@ import openpyxl
 import re
 from pytube import YouTube
 from pytube.exceptions import RegexMatchError
-from moviepy.editor import AudioFileClip
+from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 # Globals:
 # consts
@@ -88,16 +88,16 @@ def processTasks(class_dir, worksheet, start_row, end_row):
         downloadAudio(yt_url, class_dir, new_folder, timestamps)
 
 def main():
-    download_dir1 = "/home/usuario/Documentos/musicas-formatura/3001"
-    download_dir2 = "/home/usuario/Documentos/musicas-formatura/3002"
-    download_dir3 = "/home/usuario/Documentos/musicas-formatura/3003"
+    download_dir1 = "musicas/3001"
+    download_dir2 = "musicas/3002"
+    download_dir3 = "musicas/3003"
 
     class_dirs = [download_dir1, download_dir2, download_dir3]
-    start_rows = [2, 28, 58]
-    end_rows = [27, 57, 83]
+    start_rows = [2, 4, 6]
+    end_rows = [3, 5, 7]
 
     # open excel file
-    workbook = openpyxl.load_workbook("/home/usuario/Documentos/formatura-downloads-sheet.xlsx")  # dir
+    workbook = openpyxl.load_workbook("test2.xlsx")  # dir
 
     for i in range(len(class_dirs)):
         start_row, end_row = start_rows[i], end_rows[i]
