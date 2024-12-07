@@ -1,75 +1,90 @@
 import os
 import openpyxl
 import re
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError
+import yt_dlp
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 
 # Globals:
-# consts
 A = 0
 B = 1
 C = 2
 D = 3
 E = 4
 
+
 def downloadAudio(yt_url, download_dir, new_folder, timestamps):
     try:
-        url = YouTube(yt_url)
-        stream = url.streams.filter(file_extension='mp4').first()
-        new_folder_path = os.path.join(download_dir, new_folder)
-
+        new_folder_path = os.path.join(download_dir, str(new_folder))  # Ensure new_folder is a string
         os.makedirs(new_folder_path, exist_ok=True)
-        file_path = stream.download(output_path=new_folder_path, filename=url.title)
+
+        # Configure yt-dlp options
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'outtmpl': os.path.join(new_folder_path, '%(title)s.%(ext)s'),
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+        }
+
+        # Download the audio using yt-dlp
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(yt_url, download=True)
+            mp3_file_path = ydl.prepare_filename(info_dict).replace('.webm', '.mp3').replace('.m4a', '.mp3')
 
         if timestamps:
-            trimmed_output_path = os.path.join(new_folder_path, f'{url.title}_trim.wav')
-            trimAudio(file_path, trimmed_output_path, timestamps)
+            trimmed_output_path = os.path.join(new_folder_path, f"{info_dict['title']}_trim.mp3")
+            trimAudio(mp3_file_path, trimmed_output_path, timestamps)
 
-            # remove not trimmed audio file
-            os.remove(file_path)
+            # Remove the untrimmed MP3 file
+            os.remove(mp3_file_path)
         else:
-            trimmed_output_path = file_path
+            trimmed_output_path = mp3_file_path
 
-        print("done!\n")
+        print(f"Download completed: {trimmed_output_path}\n")
 
-    except RegexMatchError as error:
-        print(f"Download error for {url}: {error}")
+    except Exception as error:
+        print(f"Download error for {yt_url}: {error}")
+
 
 def timestampToSeconds(timestamp):
-    # convert timestamp in str to sec int
+    # Convert timestamp in str to sec int
     match = re.match(r'(\d+):(\d+)', timestamp)
 
     if match:
         minutes, seconds = map(int, match.groups())
-        return (minutes * 60 + seconds)
+        return minutes * 60 + seconds
 
     return 0
 
+
 def trimAudio(file_path, output_path, timestamps):
-    # get audio file
+    # Get audio file
     audio = AudioFileClip(file_path)
 
     print(f"\nOriginal timestamps: {timestamps}\n")
 
-    # process timestamps string
+    # Process timestamps string
     start, end = re.findall(r'\d+:\d+', timestamps)
 
-    # convert timestamps str to sec
+    # Convert timestamps str to sec
     start_sec = timestampToSeconds(start)
     print(f"Start time {start} in seconds: {start_sec}\n")
 
-    # Check if the end timestamp is greater than the video duration
-    video_duration = audio.duration
-    end_sec = min(timestampToSeconds(end), video_duration)
+    # Check if the end timestamp is greater than the audio duration
+    audio_duration = audio.duration
+    end_sec = min(timestampToSeconds(end), audio_duration)
     print(f"End time {end} in seconds: {end_sec}\n")
 
-    # trim audio from the end first
-    trimmed_audio = audio.subclip(0, end_sec)
-    # trim audio from the start
-    trimmed_audio = trimmed_audio.subclip(start_sec, None)
-    # save trimmed file
-    trimmed_audio.write_audiofile(output_path)
+    # Trim audio using set_start() and set_end()
+    trimmed_audio = audio.subclip(start_sec, end_sec)
+
+    # Save trimmed MP3 file
+    trimmed_audio.write_audiofile(output_path, codec="libmp3lame")
+    trimmed_audio.close()
+    audio.close()
+
 
 def processTasks(class_dir, worksheet, start_row, end_row):
     for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
@@ -77,32 +92,52 @@ def processTasks(class_dir, worksheet, start_row, end_row):
         yt_url = row[D]
         timestamps = row[E]
 
-        # skip task if YouTube URL is empty
+        # Skip task if YouTube URL is empty
         if not yt_url:
-            print(f"SKIPPING TASK. EMPTY URL.")
+            print("SKIPPING TASK. EMPTY URL.")
             continue
 
-        # debug
-        print(f"\nProcessing task: {yt_url} in {new_folder}")
-        # download audio
+        # Debug
+        print(f"\nProcessing task:
+
+{yt_url} in {new_folder}\n")
+
+        # Download audio with the given timestamps
         downloadAudio(yt_url, class_dir, new_folder, timestamps)
 
+        # Update status column in the worksheet
+        status_column = "Status"
+        status_idx = None
+        for idx, cell in enumerate(worksheet[1]):
+            if cell.value == status_column:
+                status_idx = idx + 1
+                break
+
+        if status_idx:
+            worksheet.cell(row=row[0], column=status_idx).value = "Completed"
+
+    # Save updated worksheet
+    workbook.save(os.path.join(class_dir, "tasks.xlsx"))
+
+
+# Main function
 def main():
-    download_dir1 = "musicas/3001"
-    download_dir2 = "musicas/3002"
-    download_dir3 = "musicas/3003"
+    class_dir = "musicas/3001"
+    excel_file = os.path.join(class_dir, "tasks.xlsx")
 
-    class_dirs = [download_dir1, download_dir2, download_dir3]
-    start_rows = [2, 4, 6]
-    end_rows = [3, 5, 7]
+    # Load the Excel workbook and worksheet
+    workbook = openpyxl.load_workbook(excel_file)
+    worksheet = workbook.active
 
-    # open excel file
-    workbook = openpyxl.load_workbook("test2.xlsx")  # dir
+    # Process tasks from row 2 to the last row
+    start_row = 2
+    end_row = worksheet.max_row
 
-    for i in range(len(class_dirs)):
-        start_row, end_row = start_rows[i], end_rows[i]
-        # process tasks sequentially
-        processTasks(class_dirs[i], workbook.active, start_row, end_row)
+    processTasks(class_dir, worksheet, start_row, end_row)
+
+    print("\nAll tasks processed successfully.")
+
 
 if __name__ == "__main__":
     main()
+

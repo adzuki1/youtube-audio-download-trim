@@ -1,6 +1,7 @@
 pytube
 openpyxl
 moviepy
+yt_dlp
 
 # os
 # re
