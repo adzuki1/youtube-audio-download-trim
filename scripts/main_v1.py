@@ -77,7 +77,7 @@ def trimAudio(file_path, output_path, timestamps):
     end_sec = min(timestampToSeconds(end), audio_duration)
     print(f"End time {end} in seconds: {end_sec}\n")
 
-    # Trim audio using set_start() and set_end()
+    # Trim audio using the correct slicing method
     trimmed_audio = audio.subclip(start_sec, end_sec)
 
     # Save trimmed MP3 file
@@ -98,44 +98,27 @@ def processTasks(class_dir, worksheet, start_row, end_row):
             continue
 
         # Debug
-        print(f"\nProcessing task:
-
-{yt_url} in {new_folder}\n")
-
-        # Download audio with the given timestamps
+        print(f"\nProcessing task: {yt_url} in {new_folder}")
+        # Download audio
         downloadAudio(yt_url, class_dir, new_folder, timestamps)
 
-        # Update status column in the worksheet
-        status_column = "Status"
-        status_idx = None
-        for idx, cell in enumerate(worksheet[1]):
-            if cell.value == status_column:
-                status_idx = idx + 1
-                break
 
-        if status_idx:
-            worksheet.cell(row=row[0], column=status_idx).value = "Completed"
-
-    # Save updated worksheet
-    workbook.save(os.path.join(class_dir, "tasks.xlsx"))
-
-
-# Main function
 def main():
-    class_dir = "musicas/3001"
-    excel_file = os.path.join(class_dir, "tasks.xlsx")
+    download_dir1 = "musicas/3001"
+    download_dir2 = "musicas/3002"
+    download_dir3 = "musicas/3003"
 
-    # Load the Excel workbook and worksheet
-    workbook = openpyxl.load_workbook(excel_file)
-    worksheet = workbook.active
+    class_dirs = [download_dir1, download_dir2, download_dir3]
+    start_rows = [2, 27, 55]
+    end_rows = [26, 54, 80]
 
-    # Process tasks from row 2 to the last row
-    start_row = 2
-    end_row = worksheet.max_row
+    # Open Excel file
+    workbook = openpyxl.load_workbook("url-input2.xlsx")
 
-    processTasks(class_dir, worksheet, start_row, end_row)
-
-    print("\nAll tasks processed successfully.")
+    for i in range(len(class_dirs)):
+        start_row, end_row = start_rows[i], end_rows[i]
+        # Process tasks sequentially
+        processTasks(class_dirs[i], workbook.active, start_row, end_row)
 
 
 if __name__ == "__main__":
