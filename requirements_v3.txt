@@ -1,5 +1,0 @@
-# os
-pandas
-pydub
-youtube_dl
-
