@@ -1,10 +1,12 @@
+# Dependencies:
 import os
 import openpyxl
 import re
 import yt_dlp
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 
-# Globals:
+
+# Globals associated with columns in sheet:
 A = 0
 B = 1
 C = 2
@@ -15,10 +17,10 @@ E = 4
 def downloadAudio(yt_url, download_dir, new_folder, timestamps):
 
     try:
-        new_folder_path = os.path.join(download_dir, str(new_folder))  # Ensure new_folder is a string
+        new_folder_path = os.path.join(download_dir, str(new_folder))
         os.makedirs(new_folder_path, exist_ok=True)
 
-        # Configure yt-dlp options
+        # Configure yt-dlp options to audio only
         ydl_opts = {
             'format': 'bestaudio/best',
             'outtmpl': os.path.join(new_folder_path, '%(title)s.%(ext)s'),
@@ -79,7 +81,7 @@ def trimAudio(file_path, output_path, timestamps):
     end_sec = min(timestampToSeconds(end), audio_duration)
     print(f"End time {end} in seconds: {end_sec}\n")
 
-    # Trim audio using the correct slicing method
+    # Trim audio using the slicing method
     trimmed_audio = audio.subclip(start_sec, end_sec)
 
     # Save trimmed MP3 file
@@ -88,41 +90,41 @@ def trimAudio(file_path, output_path, timestamps):
     audio.close()
 
 
-def processTasks(class_dir, worksheet, start_row, end_row):
+def processTasks(dl_directory, worksheet, start_row, end_row):
 
-    for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
-        new_folder = row[C]
-        yt_url = row[D]
-        timestamps = row[E]
+    for row in worksheet.iter_rows(min_row=start_row, 
+    				   max_row=end_row, 
+    				   values_only=True):
+        new_folder = row[C] # Where to get each folder name to save files 
+        yt_url = row[D] # Where to get URLs
+        timestamps = row[E] # Where to get timestamps
 
         # Skip task if YouTube URL is empty
         if not yt_url:
             print("SKIPPING TASK. EMPTY URL.")
             continue
 
-        # Debug
         print(f"\nProcessing task: {yt_url} in {new_folder}")
         # Download audio
-        downloadAudio(yt_url, class_dir, new_folder, timestamps)
+        downloadAudio(yt_url, dl_directory, new_folder, timestamps)
 
 
 def main():
 
-    download_dir1 = "musicas/3001"
-    download_dir2 = "musicas/3002"
-    download_dir3 = "musicas/3003"
-
-    class_dirs = [download_dir1, download_dir2, download_dir3]
-    start_rows = [2, 27, 55]
-    end_rows = [26, 54, 80]
+    # Specify multiple path if needed
+    dl_directories = ["downloads"]
+    start_rows = [2]
+    end_rows = [4]
 
     # Open Excel file
-    workbook = openpyxl.load_workbook("url-input2.xlsx")
+    workbook = openpyxl.load_workbook("test.xlsx")
 
-    for i in range(len(class_dirs)):
+    # This loop save from row x_0 to x_n-1 in specific directory, then moves on
+    # to the next directory
+    for i in range(len(dl_directories)):
         start_row, end_row = start_rows[i], end_rows[i]
         # Process tasks sequentially
-        processTasks(class_dirs[i], workbook.active, start_row, end_row)
+        processTasks(dl_directories[i], workbook.active, start_row, end_row)
 
 
 if __name__ == "__main__":
