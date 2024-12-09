@@ -82,3 +82,91 @@ The script processes tasks from an Excel file. The columns in the sheet should b
 
 ---
 
+# VERSION 2
+
+## Overview
+This script, `main_v2.py`, is an enhancement of version 1, introducing multithreading using a queue to manage tasks. While it provides better scalability and modularity, it includes some bugs and limitations that need attention.
+
+### Key Features in Version 2:
+- **Multithreading**: Uses a worker thread pool to process tasks concurrently.
+- **Queue-Based Task Management**: Tasks are added to a queue and processed sequentially by worker threads.
+- **Error Handling**: Includes basic error handling mechanisms for downloads and audio processing.
+
+---
+
+## Changes from Version 1
+- **Multithreading**: Version 2 introduces multithreading for improved scalability, allowing the script to handle multiple tasks concurrently. The `Queue` module and `Thread` class are used to manage task execution.
+- **Worker Threads**: A configurable number of threads (default: 4) can be spawned to process tasks from the queue.
+- **Task Queue**: Tasks are added to a queue and processed independently by each thread.
+- **Improved Modularity**: Functions like `processQueue` and `main` are structured for better readability and reusability.
+
+---
+
+## Limitations and Known Issues
+- **Task Counter**: The "Processing task" counter is not thread-safe, leading to possible misreporting of task indices.
+- **Error with `None` Task**: Threads log errors when encountering the termination signal (`None`) due to attempting to process it as a task. This does not impact functionality but generates unnecessary log messages.
+- **Sequential Downloads Per Thread**: While multithreading improves concurrency, each thread still processes tasks sequentially, limiting full parallel download performance.
+
+---
+
+## Installation and Usage
+
+### Dependencies
+Ensure the following Python libraries are installed:
+- `os`
+- `openpyxl`
+- `re`
+- `moviepy`
+- `queue`
+- `threading`
+- `yt_dlp`
+
+Install dependencies using pip:
+```bash
+pip install openpyxl moviepy yt-dlp
+```
+
+### Configuration
+1. **Thread Count**:
+   - Adjust the `num_threads` variable in the `main` function based on your system's capability.
+
+
+---
+
+## Output
+- **Console Logs**:
+  - Task processing status for each thread.
+  - Errors (e.g., download failures, trimming issues).
+- **Downloaded Files**:
+  - Saved in respective folders inside `DOWNLOADS`.
+  - Trimmed files (if timestamps are provided).
+
+---
+
+## Known Bugs
+1. **Termination Signal Handling**:
+   - Threads attempt to process `None` and log unnecessary errors.
+   - Fix: Add a check to skip `None` in `processQueue`.
+2. **Task Counter Misalignment**:
+   - Task counter (`Processing task X`) is shared among threads, leading to inaccurate indices.
+   - Fix: Use a thread-safe counter mechanism.
+
+---
+
+## Planned Improvements
+- Refactor `processQueue` to properly handle termination signals.
+- Introduce logging instead of print statements for better debugging and tracking.
+- Implement thread-safe counters.
+- Optimize task concurrency for higher parallelism in downloads.
+
+---
+
+## Version History
+- **Version 1.0**: Initial implementation with sequential task execution.
+- **Version 2.0**: Added multithreading and queue-based task management.
+
+---
+
+## Notes
+This version works for small-scale tasks but may require further refinements for production use or high-concurrency scenarios.
+
