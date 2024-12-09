@@ -88,7 +88,7 @@ def trimAudio(file_path, output_path, timestamps):
 
 def processTasks(class_dir, worksheet, start_row, end_row):
     for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
-        new_folder = row[B]
+        new_folder = row[C]
         yt_url = row[D]
         timestamps = row[E]
 
