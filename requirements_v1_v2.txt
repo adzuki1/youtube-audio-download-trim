@@ -1,6 +1,6 @@
 pytube
 openpyxl
-moviepy
+moviepy==2.0.0.dev2
 yt_dlp
 
 # os

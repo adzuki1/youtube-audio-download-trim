@@ -7,22 +7,30 @@ from queue import Queue
 from threading import Thread
 from datetime import datetime
 
+
 # Globals
 A, B, C, D, E = 0, 1, 2, 3, 4
 download_queue = Queue()
 log_entries = []
 
+
 # Functions
 def writeLog():
+
     log_file = "execution_log.txt"
+
     with open(log_file, "w") as log:
         log.write("Execution Log\n")
         log.write("=" * 50 + "\n")
+
         for entry in log_entries:
             log.write(entry + "\n")
+
     print(f"Log file created: {log_file}")
 
+
 def downloadAudio(yt_url, download_dir, new_folder, timestamps):
+
     try:
         new_folder_path = os.path.join(download_dir, str(new_folder))
         os.makedirs(new_folder_path, exist_ok=True)
@@ -32,8 +40,9 @@ def downloadAudio(yt_url, download_dir, new_folder, timestamps):
             'format': 'bestaudio/best',
             'outtmpl': os.path.join(new_folder_path, '%(title)s.%(ext)s'),
             'postprocessors': [
-                {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}
-            ],
+                {'key': 'FFmpegExtractAudio', 
+                'preferredcodec': 'mp3', 
+                'preferredquality': '192'}],
         }
 
         # Download audio
@@ -52,37 +61,52 @@ def downloadAudio(yt_url, download_dir, new_folder, timestamps):
     except Exception as error:
         log_entries.append(f"ERROR: {yt_url} - {error}")
 
+
 def timestampToSeconds(timestamp):
+
     match = re.match(r'(\d+):(\d+)', timestamp)
+
     if match:
         minutes, seconds = map(int, match.groups())
         return minutes * 60 + seconds
+
     return 0
 
+
 def trimAudio(file_path, output_path, timestamps):
+
     audio = AudioFileClip(file_path)
     start, end = re.findall(r'\d+:\d+', timestamps)
     start_sec = timestampToSeconds(start)
     end_sec = min(timestampToSeconds(end), audio.duration)
+    
     trimmed_audio = audio.subclip(start_sec, end_sec)
     trimmed_audio.write_audiofile(output_path, codec="libmp3lame")
+
     trimmed_audio.close()
     audio.close()
 
+
 def processQueue():
+
     while True:
         task = download_queue.get()
+
         if task is None:
             break
 
         yt_url, download_dir, new_folder, timestamps = task
+
         print(f"Processing task: {yt_url} in {new_folder}")
+
         downloadAudio(yt_url, download_dir, new_folder, timestamps)
         download_queue.task_done()
 
+
 def enqueueTasks(class_dir, worksheet, start_row, end_row):
+
     for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
-        new_folder = row[B]
+        new_folder = row[C]
         yt_url = row[D]
         timestamps = row[E]
 
@@ -91,16 +115,18 @@ def enqueueTasks(class_dir, worksheet, start_row, end_row):
         else:
             log_entries.append(f"WARNING: Skipping empty URL in row {row[A]}")
 
+
 def main():
     download_dirs = ["musicas/3001", "musicas/3002", "musicas/3003"]
     start_rows = [2, 27, 55]
-    end_rows = [26, 54, 80]
+    end_rows = [26, 54, 85]
 
-    workbook = openpyxl.load_workbook("url-input2.xlsx")
+    workbook = openpyxl.load_workbook("url-input3.xlsx")
     worksheet = workbook.active
 
     # Start the worker threads
     worker_threads = []
+    
     for _ in range(4):  # Adjust the number of threads as needed
         worker = Thread(target=processQueue)
         worker.start()
@@ -120,6 +146,7 @@ def main():
 
     # Write the log file
     writeLog()
+
 
 if __name__ == "__main__":
     main()

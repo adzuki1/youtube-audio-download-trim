@@ -1,0 +1,91 @@
+Execution Log
+==================================================
+SUCCESS: Trimmed audio saved: musicas/3001/Alessandra-Farias-do-Nascimento/Mumuzinho - Eu Mereço Ser Feliz (Ao Vivo)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Arthur-Silva-Nascimento/Cartoon, Jéja - On & On (Lyrics) feat. Daniel Levi_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Beatriz-Pittaro-Neves/Another Brick in the Wall (Part 2) - Pink Floyd_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/André-Felippe-de-Albuquerque/50 Cent - Many men (wish death)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Giovani-Maia-Milan/Post Malone - "Wow." (Official Music Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Erick-Mitrano-Neves-Moura-Vargas/The Greatest Showman Cast - From Now On (Official Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Geraldo-Antônio-Pereira-Filho/Rhymes Like Dimes_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Jamily-Santos-Menezes/134340 (instrumental)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/João-Francisco-Mello-Ribeiro/Senhor do Tempo - Charlie Brown Jr_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Júlia-Lourenço-dos-Santos/Oasis - Don’t Look Back In Anger_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Lucas-Macedo-Darze/J. Cole - MIDDLE CHILD (Official Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Laura-Diez-de-Magalhães-Pinto/Cemetery Gates_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Maria-Clara-Moura-Paes/Lugar Ao Sol_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Maria-Julia-Arrais-de-Lima-de-Souza/Lana Del Rey - Ride (Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Marina-Monteiro-Garcia-Moura/david bowie - heroes (album version)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Nathalia-Correia-Euclydes-de-Souza/Arctic Monkeys - Stop The World I Wanna Get Off With You (Official Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Miguel-da-Silva-Veiga/Tornado Of Souls (2004 Remix)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Olavo-Moraes-Bertolossi/John Newman - Love Me Again_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Pedro-Henrique-Padilha-Valente/We Are The Champions (Remastered 2011)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Pedro-Henrique-Martins-de-Barros-F.-Bittencourt/Michael Jackson - Billie Jean (Official Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Pedro-Lima-Amorim/My Way (2008 Remastered)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Pietro-Cardoso-de-Melo-Capotorto/Rush_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Vitória-Braga-Soares-Cruz/24 de novembro de 2024_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Pietro-Gasparelli-Escalfoni/Vogue_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3001/Rafael-Schmidt-Ribeiro/Red Hot Chili Peppers - Can't Stop [Official Music Video]_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Ana-Júlia-Nazareth-de-Castro-Gonçalves/Los hermanos - Anna Júlia_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Alice-Barreto-Lessa/Taylor Swift - Long Live (Official Instrumental Without Backing Vocals)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/André-Mattos-Medeiros/Green Day - Good Riddance (Time of Your Life) [Official Music Video] [4K UPGRADE]_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Bianca-de-Oliveira-da-Silva/The Temptations - My Girl_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Diana-de-Moraes-Castanheira/God Is_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Enzo-Santos-Rodrigues/Limp Bizkit - N 2 Gether Now (Official Music Video) ft. Method Man_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Fernanda-Moriel-Castela-de-Souza/Billy Joel - Vienna (Audio) (Official Audio)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Gabriel-de-Oliveira-Garritano/Jorge Ben Jor - Gabriel Guerreiro Galáctico (Álbum "Ben Brasil") [Áudio Oficial]_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Gabriela-Kleinman-Fiorelli/Coldplay - Viva La Vida (Official Video)_trim.mp3
+ERROR: https://www.youtube.com/watch?v=f1PCyGcBJJE - [Errno 32] Broken pipe
+
+MoviePy error: FFMPEG encountered the following error while writing file musicas/3002/João-Borges-Gameiro-Drummond/Here Comes The Sun - The Beatles - Tradução/Legendado_trim.mp3:
+
+ musicas/3002/João-Borges-Gameiro-Drummond/Here Comes The Sun - The Beatles - Tradução/Legendado_trim.mp3: No such file or directory
+
+SUCCESS: Trimmed audio saved: musicas/3002/Joana-Arrais-de-Lima-Mello/Slipping Through My Fingers_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Gabriela-Tomooka-Kullock-de-Oliveira/Toquinho - Aquarela_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/João-Petraglia-Poli-Silva/1. VND - Sobrevivendo ao Inferno | #EuTambemSouUmAnjo_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Joaquim-Correa-Massarani/Tim Maia - Você_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Juliana-de-Andrade-Ferreira/Jão - Clarão (Lyric Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Julia-Mendonça-Borges-da-Silva/Corinne Bailey Rae - Put Your Records On_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Laura-de-Pierre-Candido-Sebastião/Long Live (Taylor's Version)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Laura-Medina-Harter/Our Last Summer (From 'Mamma Mia!' Original Motion Picture Soundtrack)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Leonardo-de-Oliveira-Faccio/Djavan - Samurai (Áudio Oficial) ft. Stevie Wonder_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Lucca-de-Avellar-Batista-Ramires-Torres/Travis Scott - TELEKINESIS (Official Audio) ft. SZA, Future_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Manuela-Bento-de-Azevedo-Vieira/Grupo Revelação - Tá Escrito (Ao Vivo no Morro)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Madalena-Muniz-Bezerra-de-Melo/Coldplay - Paradise (Official Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Maria-Eduarda-Assis-Bonze/Loose_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Mariana-Goulart-de-Oliveira-de-Campos/Kanye West - All Falls Down ft. Syleena Johnson_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Marina-Leibold-Leite-Pinto/ABBA - Waterloo (Official Music Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Marina-Souza-Brandão/Years & Years - King (Official Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Nathália-Gonçalves-Mariano-Rodrigues/Taylor Swift - You're On Your Own, Kid (Official Lyric Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Catarina-Kubotta-Tedesco/Rita Lee - Minha Vida (In My Life) - Tema da Novela Espelho da Vida_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3002/Rodrigo-Aymone-Schnabl/Lugar Ao Sol_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Cauã-Dias-Ribeiro-de-Carvalho/Samba De Raiz - Conselho_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Clara-Camurate-Kleinman/Marcelinho Moreira - Filosofia de Vida_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Enzo-Menengat-Olivella/Marcelo D2 e Stephan - Loadeando_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Felipe-Galante-Viola/Hino do Fluminense Football Club ( Hino Popular ) [ HINO COMPLETO ]_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Francisco-de-Almeida-Moura-Milani/Pra Dizer Adeus (Ao Vivo)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Gabriel-Orenbuch-Vasi-Werner/Bailão do Werner e Cia 🎺🎷 - Werner e Cia Musical | Vídeo Clipe Oficial | Lançamento 2024_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Giovana-Kleinman-Fiorelli/Legião Urbana · Tempo perdido_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Giovanna-Araújo-Costa-Coelho/The Script - Hall Of Fame (Lyrics)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Giovanna-de-Brito-Alves-Jorge-Nascimento/DVD PRAZER, EU SOU FERRUGEM: "DAVI" I PART. PÉRICLES_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Giovanna-Silva-Siciliano/David Bowie - Heroes (Official Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Giulia-Claro-Carvalho/One Direction - Story of My Life (Official 4K Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Guilherme-Romano-de-Siqueira/Grupo Revelação - Tá Escrito (Ao Vivo no Morro)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Isabelle-Rodrigues-de-Sousa/Taylor Swift - You're On Your Own, Kid (Official Lyric Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Isabely-da-Silva-Lopes/Just Like Fire (From the Original Motion Picture "Alice Through The Looking Glass") (Ly..._trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Laura-Cardoso-de-Azevedo/O Que É O Que É?_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Luana-Mendes-Aydelkop/Me Descobrir_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Lucas-Lopes-Coelho/Alice In Chains - Bleed The Freak (Official HD Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Lucas-Poggiali-Brêtas-de-Figueiredo/It's Going Down Now_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Lucas-Rodrigues-Steinmann/Arlindo Cruz - O Bem_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Luisa-Freitas-Campos-Pizarro-Drummond/A Banda_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Luci-Vieira-Sayão/Sufjan Stevens - Mystery of Love (From "Call Me By Your Name" Soundtrack)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Luiza-Corrêa-Caracoci/Vance Joy  - We're Going Home [Official Video]_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Mali-Zygielszyper-Botura/Palco_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Maria-Luísa-Dias-Nogueira-da-Gama/She's Leaving Home (Remastered 2009)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Maria-Clara-Prast-Duque/Radiate_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Marina-Vaz-Carneiro/Billy Joel - Vienna (Official Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Marina-Vidigal-Nevares/Vou Deixar_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Rebecca-Ivy-Bolivar-Rennes/Treasure - Bruno Mars (Lyrics) 🎵_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Maximus-Pires-Cal/Justin Timberlake - CAN'T STOP THE FEELING! (from DreamWorks Animation's "TROLLS") (Official Video)_trim.mp3
+SUCCESS: Trimmed audio saved: musicas/3003/Viviane-Araújo-de-Oliveira/Guns N' Roses - Sweet Child O' Mine (Official Music Video)_trim.mp3

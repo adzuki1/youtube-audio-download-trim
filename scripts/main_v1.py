@@ -13,6 +13,7 @@ E = 4
 
 
 def downloadAudio(yt_url, download_dir, new_folder, timestamps):
+
     try:
         new_folder_path = os.path.join(download_dir, str(new_folder))  # Ensure new_folder is a string
         os.makedirs(new_folder_path, exist_ok=True)
@@ -24,8 +25,7 @@ def downloadAudio(yt_url, download_dir, new_folder, timestamps):
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
+                'preferredquality': '192',}],
         }
 
         # Download the audio using yt-dlp
@@ -49,6 +49,7 @@ def downloadAudio(yt_url, download_dir, new_folder, timestamps):
 
 
 def timestampToSeconds(timestamp):
+
     # Convert timestamp in str to sec int
     match = re.match(r'(\d+):(\d+)', timestamp)
 
@@ -60,6 +61,7 @@ def timestampToSeconds(timestamp):
 
 
 def trimAudio(file_path, output_path, timestamps):
+
     # Get audio file
     audio = AudioFileClip(file_path)
 
@@ -87,6 +89,7 @@ def trimAudio(file_path, output_path, timestamps):
 
 
 def processTasks(class_dir, worksheet, start_row, end_row):
+
     for row in worksheet.iter_rows(min_row=start_row, max_row=end_row, values_only=True):
         new_folder = row[C]
         yt_url = row[D]
@@ -104,6 +107,7 @@ def processTasks(class_dir, worksheet, start_row, end_row):
 
 
 def main():
+
     download_dir1 = "musicas/3001"
     download_dir2 = "musicas/3002"
     download_dir3 = "musicas/3003"

@@ -15,7 +15,7 @@ D = 3
 E = 4
 
 download_queue = Queue()
-download_dir = "/your/download/directory"
+download_dir = "/musicas" # "/your/download/directory"
 
 
 def downloadAudio(yt_url, new_folder, timestamps):
@@ -115,8 +115,9 @@ def processQueue():
 
 
 def main():
+
     # Open Excel file
-    workbook = openpyxl.load_workbook("url-input3.xlsx")  # Update with your Excel file's path
+    workbook = openpyxl.load_workbook("url-input4.xlsx")  # Update with your Excel file's path
     worksheet = workbook.active
 
     # Queue worker thread
