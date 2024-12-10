@@ -121,9 +121,7 @@ Ensure the following Python libraries are installed:
 - `threading`
 - `yt_dlp`
 
-Install dependencies using pip:
-```bash
-pip install openpyxl moviepy yt-dlp
+openpyxl moviepy yt-dlp
 ```
 
 ### Configuration
