@@ -121,8 +121,6 @@ Ensure the following Python libraries are installed:
 - `threading`
 - `yt_dlp`
 
-openpyxl moviepy yt-dlp
-```
 
 ### Configuration
 1. **Thread Count**:
